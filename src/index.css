@@ -118,3 +118,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .gradient {
+    background: linear-gradient(to bottom right, rgb(107, 114, 128), rgb(229, 231, 235), rgb(255, 255, 255));
+  }
+  .gradient-title {
+    background: linear-gradient(to bottom right, rgb(107, 114, 128), rgb(229, 231, 235), rgb(255, 255, 255));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
