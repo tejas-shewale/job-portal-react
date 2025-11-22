@@ -8,6 +8,7 @@ import PostJob from "./pages/PostJob"
 import SavedJob from "./pages/savedJob"
 import MyJobs from "./pages/MyJobs"
 import { ThemeProvider } from "./components/theme-provider"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
 
@@ -15,34 +16,13 @@ function App() {
     {
       element:<AppLayout/>,
       children: [
-        {
-          path: "/",
-          element: <LandingPage />
-        },
-        {
-          path: "/onbording",
-          element: <Onbording />
-        },
-        {
-          path: "/jobs",
-          element: <JobListing />
-        },
-        {
-          path: "/job/:id",
-          element: <JobPage />
-        },
-        {
-          path: "/post-job",
-          element: <PostJob />
-        },
-        {
-          path: "/saved-jobs",
-          element: <SavedJob />
-        },
-        {
-          path: "/my-jobs",
-          element: <MyJobs  />
-        },
+        {path: "/",element:  <LandingPage />},
+        {path: "/onbording",element: (<ProtectedRoute><Onbording /></ProtectedRoute>)},
+        {path: "/jobs", element: (<ProtectedRoute><JobListing /></ProtectedRoute>)},
+        {path: "/job/:id", element: (<ProtectedRoute><JobPage /></ProtectedRoute>)},
+        {path: "/post-job",element:( <ProtectedRoute><PostJob /></ProtectedRoute>)},
+        {path: "/saved-jobs",element: (<ProtectedRoute><SavedJob /></ProtectedRoute>)},
+        {path: "/my-jobs",element: (<ProtectedRoute><MyJobs  /></ProtectedRoute>)},
        
       ]
     }

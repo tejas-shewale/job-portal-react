@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -130,4 +131,32 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
+}
+
+/* Make background fully transparent */
+.wmde-markdown,
+.wmde-markdown-color {
+  background-color: transparent !important;
+}
+
+/* Style UL items */
+.wmde-markdown ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  color: white !important;
+}
+
+/* Style each list item */
+.wmde-markdown li {
+  display: list-item !important;
+  margin-bottom: 6px;
+
+}
+
+.select-trigger-open {
+  background-color: #064e3b !important; /* green-900 */
+}
+
+.select-trigger-closed {
+  background-color: #7f1d1d !important; /* red-900 */
 }

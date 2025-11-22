@@ -13,13 +13,9 @@ import { shadesOfPurple } from '@clerk/themes'
   }
 
   createRoot(document.getElementById('root')).render(
-    <StrictMode>
-      <ClerkProvider 
-      appearance={{
-        baseTheme:shadesOfPurple
-      }}
-      publishableKey={PUBLISHABLE_KEY}>
+    
+      <ClerkProvider appearance={{baseTheme:shadesOfPurple}} publishableKey={PUBLISHABLE_KEY}>
         <App />
       </ClerkProvider>
-    </StrictMode>,
+
   )
