@@ -33,14 +33,16 @@ const JobCard = ({
     loading: loadingSavedJob,
     data: savedJob,
     fn: fnSavedJob,
-  } = useFetch(saveJob);
+  } = useFetch(saveJob, {
+    alreadySaved: saved, // Pass current saved state
+  });
 
   const handleSaveJob = async () => {
     await fnSavedJob({
       user_id: user.id,
       job_id: job.id,
     });
-    onJobAction();
+    onJobAction(); // Refetch jobs to update UI
   };
 
   const handleDeleteJob = async () => {
@@ -49,7 +51,9 @@ const JobCard = ({
   };
 
   useEffect(() => {
-    if (savedJob !== undefined) setSaved(savedJob?.length > 0);
+    if (savedJob !== undefined) {
+      setSaved(savedJob?.length > 0);
+    }
   }, [savedJob]);
 
   return (
