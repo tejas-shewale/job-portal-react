@@ -74,11 +74,12 @@ export async function saveJob(token, { alreadySaved }, saveData) {
     const { data, error: deleteError } = await supabase
       .from("saved_jobs")
       .delete()
-      .eq("job_id", saveData.job_id);
+      .eq("job_id", saveData.job_id)
+      .eq("user_id", saveData.user_id); // Add this line for better filtering
 
     if (deleteError) {
       console.error("Error removing saved job:", deleteError);
-      return data;
+      throw new Error(deleteError.message);
     }
 
     return data;
@@ -91,13 +92,12 @@ export async function saveJob(token, { alreadySaved }, saveData) {
 
     if (insertError) {
       console.error("Error saving job:", insertError);
-      return data;
+      throw new Error(insertError.message);
     }
 
     return data;
   }
 }
-
 // - job isOpen toggle - (recruiter_id = auth.uid())
 export async function updateHiringStatus(token, { job_id }, isOpen) {
   const supabase = await supabaseClient(token);
