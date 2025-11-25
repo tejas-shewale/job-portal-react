@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useFetch from "@/hooks/use-fetch";
 import { applyToJob } from "@/api/apiApplication";
 import { BarLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 const schema = z.object({
   experience: z.int(),
@@ -72,7 +73,7 @@ const ApplyJobDrawer = ({ user, job, applied = false, fetchJob }) => {
       <DrawerTrigger asChild>
         <Button
           size="lg"
-          variant={job?.isOpen ? "blue":"destructive"}
+          variant={job?.isOpen ? "blue" : "destructive"}
           disabled={!job?.isOpen || applied}
         >
           {job?.isOpen ? (applied ? "Applied" : "Apply") : "Hiring Close"}
@@ -156,6 +157,9 @@ const ApplyJobDrawer = ({ user, job, applied = false, fetchJob }) => {
           <Button type="submit" variant="blue" size="lg">
             Apply
           </Button>
+          <div>
+            
+          </div>
         </form>
 
         <DrawerFooter>

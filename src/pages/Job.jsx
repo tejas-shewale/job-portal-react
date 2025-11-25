@@ -1,6 +1,7 @@
 import { getSingleJob, updateHiringStatus } from "@/api/apiJobs";
 import ApplicationCard from "@/components/application-card";
 import ApplyJobDrawer from "@/components/apply-job";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -13,7 +14,7 @@ import { useUser } from "@clerk/clerk-react";
 import MDEditor from "@uiw/react-md-editor";
 import { Briefcase, DoorClosed, DoorOpen, MapPinIcon } from "lucide-react";
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 
 const JobPage = () => {
@@ -46,22 +47,24 @@ const JobPage = () => {
 
   return (
     <div className="flex flex-col gap-8 ">
-      <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-5 mb-8">
-        <h1 className="gradient-title font-extrabold text-4xl sm:text-5xl text-center pb-3">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-5 mb-8 ">
+        <h1 className="gradient-title font-extrabold text-4xl sm:text-5xl text-center pb-3 overflow">
           {job?.title}
         </h1>
         <img src={job?.company.logo_url} className="h-12" alt={job?.title} />
       </div>
 
-      <div className="flex justify-between">
-        <div className="flex gap-2">
+      <div className="flex flex-wrap justify-between gap-y-3 sm:gap-y-0 text-sm">
+        <div className="flex gap-2 items-center whitespace-normal max-w-[45%]">
           <MapPinIcon />
           {job?.location}
         </div>
-        <div className="flex gap-2">
+
+        <div className="flex gap-2 items-center">
           <Briefcase /> {job?.applications?.length} Applications
         </div>
-        <div className="flex gap-2">
+
+        <div className="flex gap-2 items-center">
           {job?.isOpen ? (
             <>
               <DoorOpen /> Open
@@ -131,6 +134,14 @@ const JobPage = () => {
           })}
         </div>
       )}
+
+      <div className="w-full">
+        <Link to="/jobs">
+          <Button variant="secondary" className="w-full">
+            Back To Job
+          </Button>
+        </Link>
+      </div>
 
       <div className="mt-5"></div>
     </div>

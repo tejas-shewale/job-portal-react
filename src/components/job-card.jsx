@@ -25,7 +25,11 @@ const JobCard = ({
 
   const { user } = useUser();
 
-  const { loading: loadingDeleteJob, fn: fnDeleteJob } = useFetch(deleteJob, {
+  const { 
+    loading: loadingDeleteJob, 
+    data: deletedJob,
+    fn: fnDeleteJob 
+  } = useFetch(deleteJob, {
     job_id: job.id,
   });
 
@@ -34,7 +38,7 @@ const JobCard = ({
     data: savedJob,
     fn: fnSavedJob,
   } = useFetch(saveJob, {
-    alreadySaved: saved, // Pass current saved state
+    alreadySaved: saved,
   });
 
   const handleSaveJob = async () => {
@@ -42,13 +46,19 @@ const JobCard = ({
       user_id: user.id,
       job_id: job.id,
     });
-    onJobAction(); // Refetch jobs to update UI
+    onJobAction();
   };
 
   const handleDeleteJob = async () => {
     await fnDeleteJob();
-    onJobAction();
   };
+
+  // Refetch jobs after successful deletion
+  useEffect(() => {
+    if (deletedJob && !loadingDeleteJob) {
+      onJobAction();
+    }
+  }, [deletedJob, loadingDeleteJob]);
 
   useEffect(() => {
     if (savedJob !== undefined) {
@@ -57,32 +67,42 @@ const JobCard = ({
   }, [savedJob]);
 
   return (
-    <Card className="flex flex-col mb-4">
+    <Card className="flex flex-col ">
       {loadingDeleteJob && (
         <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />
       )}
-      <CardHeader className="flex">
-        <CardTitle className="flex justify-between font-bold">
-          {job.title}
+      <CardHeader>
+        <CardTitle className="flex justify-between items-center font-bold  ">
+          <span className=" ">{job.title}</span>
           {isMyJob && (
             <Trash2Icon
               fill="red"
               size={18}
-              className="text-red-300 cursor-pointer"
+              className="text-red-300 cursor-pointer flex-shrink-0 ml-2"
               onClick={handleDeleteJob}
             />
           )}
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 flex-1">
-        <div className="flex justify-between">
-          {job.company && <img src={job.company.logo_url} className="h-6" />}
+        <div className="flex justify-between items-center">
+          {job.company && (
+            <img 
+              src={job.company.logo_url} 
+              className="h-10 object-fit " 
+              alt={job.company.name}
+            />
+          )}
           <div className="flex gap-2 items-center">
-            <MapPinIcon size={15} /> {job.location}
+            <MapPinIcon size={15} /> 
+            <span className="text-sm">{job.location}</span>
           </div>
         </div>
         <hr />
-        {job.description.substring(0, job.description.indexOf("."))}.
+        <p className="text-sm text-gray-600 line-clamp-2">
+          {job.description.substring(0, job.description.indexOf(".") || 100)}
+          {job.description.indexOf(".") !== -1 ? "." : "..."}
+        </p>
       </CardContent>
       <CardFooter className="flex gap-2">
         <Link to={`/job/${job.id}`} className="flex-1">

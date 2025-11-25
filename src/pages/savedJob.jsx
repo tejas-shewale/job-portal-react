@@ -1,9 +1,10 @@
-
 import { getSavedJobs } from "@/api/apiJobs";
 import JobCard from "@/components/job-card";
+import { Button } from "@/components/ui/button";
 import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/clerk-react";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 
 const SavedJob = () => {
@@ -47,6 +48,14 @@ const SavedJob = () => {
           )}
         </div>
       )}
+      
+      <div className="mt-10 mb-10 flex justify-center">
+        <Link to="/jobs">
+          <Button variant="secondary" className="w-50">
+            All Jobs
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };

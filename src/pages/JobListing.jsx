@@ -117,7 +117,7 @@ const JobListing = () => {
       )}
 
       {loadingJobs === false && (
-        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-8 mb-10 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {jobs?.length ? (
             jobs.map((job) => {
               return (
@@ -133,6 +133,7 @@ const JobListing = () => {
           )}
         </div>
       )}
+
     </div>
   );
 };

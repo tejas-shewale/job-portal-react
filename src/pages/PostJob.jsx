@@ -195,7 +195,7 @@ const PostJob = () => {
 
         {loadingCreateJob && <BarLoader width={"100%"} color="#36d7b7" />}
 
-        <Button type="submit" variant="blue" size="lg" className="mt-2">
+        <Button type="submit" variant="blue" size="lg" className="mt-2 mb-10 ">
           Submit
         </Button>
       </form>

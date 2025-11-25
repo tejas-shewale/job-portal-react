@@ -41,10 +41,10 @@ const Header = () => {
             </Button>
           </SignedOut>
           <SignedIn>
-            {user?.unsafeMetadata?.role === "recrutier" &&(<Link to="/post-job">
-              {/* add a condition here */}
+            {user?.unsafeMetadata?.role === "recruiter" &&(
+              <Link to="/post-job">
               <Button variant="destructive" className="rounded-full">
-                <PenBox size={20}></PenBox>
+                <PenBox size={20} />
                 Post a Job
               </Button>
             </Link>)}
