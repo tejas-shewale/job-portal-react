@@ -42,7 +42,7 @@ export async function getSavedJobs(token) {
   }
 
   return data;
-}
+} 
 
 // Read single job
 export async function getSingleJob(token, { job_id }) {
