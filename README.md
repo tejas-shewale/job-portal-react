@@ -1,92 +1,328 @@
-# React + Vite
+# 🌐 Job Portal – React + Supabase + Clerk + Shadcn UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **Job Portal Web Application** where Recruiters can post and manage jobs, and Candidates can browse, save, and apply for jobs.
 
-Currently, two official plugins are available:
+This project is built using **Vite + React (v19)** for fast frontend development, **Supabase** for database, authentication, and file storage, **Clerk** for JWT-based user authentication, and **Shadcn UI** for clean and beautiful UI components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite)
+![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase)
+![Clerk](https://img.shields.io/badge/Clerk-Auth-6C47FF)
+![Shadcn UI](https://img.shields.io/badge/Shadcn%2FUI-Components-000000)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ⭐ Features Overview
 
-## Expanding the ESLint configuration
+### 👤 Authentication (Clerk)
+- Supports **Email/Password** and **Google Login**
+- Uses **JWT** for secure session management
+- User identity stored via Clerk (recruiters & candidates share same system)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# QuizSprint 🚀
+### 🏢 Recruiter Features
+- ➕ **Create new job posts**
+- 🏢 **Add new companies** (name + logo upload)
+- ⚙️ **Manage job listings** (edit, delete, open/close)
+- 📄 **View applications** for each job
+- 🔄 **Update application status** (Pending → Hired/Rejected)
+- 🧾 **Manage all applications** created by them
 
-An online examination system built with React, Supabase, Clerk for authentication, allowing students to take timed quizzes, view results and admins or instructors to manage questions, quizzes, and results.
+### 👨‍💼 Candidate Features
+- 🔍 **Browse all active jobs**
+- 📄 **View job details** with rich descriptions
+- ⭐ **Save jobs** (wishlist)
+- 📨 **Apply for jobs** using a drawer form
+- **Application form includes:**
+  - Resume link
+  - Skills
+  - Experience
+  - Education
 
-## Table of Contents
-- [Demo](#demo)  
-- [Features](#features)  
-- [Tech Stack](#tech-stack)  
-- [Architecture & Flow](#architecture--flow)  
-- [Getting Started](#getting-started)  
-  - [Prerequisites](#prerequisites)  
-  - [Setup Supabase](#setup-supabase)  
-  - [Setup Clerk](#setup-clerk)  
-  - [Run Locally](#run-locally)  
-- [Database Schema](#database-schema)  
-- [Authentication & Authorization](#authentication--authorization)  
-- [Usage](#usage)  
-  - [Student Flow](#student-flow)  
-  - [Instructor/Admin Flow](#instructoradmin-flow)  
-- [Project Structure](#project-structure)  
-- [Contributing](#contributing)  
-- [License](#license)  
-- [Contact](#contact)
+### 📦 Core Application Features
+- ✅ Fully **Responsive UI**
+- 🔐 **JWT Authentication** via Clerk
+- 🎨 **Shadcn UI** for components
+- 📝 **Rich text editing** using MDEditor
+- 📋 **Form handling** with React Hook Form + Zod validation
+- 🔄 **Real-time updates** using Supabase
+- 🔒 **RLS (Row Level Security)** for secure queries
+- 📤 **Company logo upload** using Supabase Storage
 
-## Demo
-> Include a link to a live demo if you have one.  
-> ![demo-screenshot](URL)
+---
 
-## Features
-- Student registration & login (via Clerk)  
-- Quiz creation, editing & deletion (by instructors/admin)  
-- Timed quiz sessions with automatic scoring  
-- View results and analytics  
-- Secure authentication & authorization — only authorized users can access instructor/admin features  
-- Responsive UI built with React  
-- Real-time updates (where applicable) using Supabase  
+## 🛠️ Tech Stack
 
-## Tech Stack
-- Frontend: React + TypeScript  
-- Backend: Supabase (PostgreSQL, Auth, Storage, Functions)  
-- Authentication: Clerk  
-- Database: Supabase PostgreSQL  
-- Hosting: (e.g., Vercel, Netlify)  
-- State Management: (e.g., React Context/Redux)  
-- UI Library: (e.g., TailwindCSS, Material UI)  
+### Frontend
+| Technology | Description |
+|------------|-------------|
+| ⚛️ **React (Vite) v19** | Fast and modern frontend framework |
+| 🎨 **Tailwind CSS** | Utility-first CSS framework |
+| 🧱 **Shadcn UI** | Beautiful and accessible component library |
+| 🔐 **Clerk Authentication** | JWT-based user authentication |
+| 📋 **React Hook Form** | Performant form library |
+| ✔️ **Zod** | TypeScript-first schema validation |
+| 📝 **@uiw/react-md-editor** | Markdown editor component |
 
-## Architecture & Flow
-1. User signs up via Clerk (student or instructor/admin)  
-2. Supabase stores user records & roles  
-3. Instructors create quiz → questions stored in Supabase  
-4. Students access quiz → timer starts → submit answers  
-5. Backend (Supabase Functions or direct queries) grades quiz → results saved  
-6. Student views results; instructor views summary/analytics  
-7. Authentication and Role-based access control ensures appropriate features visible per role  
+### Backend
+| Technology | Description |
+|------------|-------------|
+| 🗂️ **Supabase PostgreSQL** | Database and backend services |
+| 🔐 **RLS (Row Level Security)** | Database-level access control |
+| 📦 **Supabase Storage** | File storage for logos and resumes |
+| 🔄 **Supabase REST + Realtime APIs** | Backend API layer |
 
-## Getting Started
+---
+
+## 🗄️ Database Schema (Supabase)
+
+### Companies Table
+| Column | Type |
+|--------|------|
+| `id` | bigint (PK) |
+| `name` | text |
+| `logo_url` | text |
+
+### Jobs Table
+| Column | Type |
+|--------|------|
+| `id` | bigint (PK) |
+| `recruiter_id` | text (Clerk User ID) |
+| `title` | text |
+| `description` | text |
+| `requirements` | text |
+| `location` | text |
+| `company_id` | bigint (FK → companies) |
+| `isOpen` | boolean |
+
+### Applications Table
+| Column | Type |
+|--------|------|
+| `id` | bigint (PK) |
+| `job_id` | bigint (FK → jobs) |
+| `candidate_id` | text (Clerk User ID) |
+| `status` | text (pending/hired/rejected) |
+| `resume` | text |
+| `skills` | text |
+| `experience` | text |
+| `education` | text |
+| `name` | text |
+
+### Saved Jobs Table
+| Column | Type |
+|--------|------|
+| `id` | bigint (PK) |
+| `user_id` | text (Clerk User ID) |
+| `job_id` | bigint (FK → jobs) |
+
+---
+
+## 🔐 Important RLS Policies
+
+### Jobs
+- ✅ Only the **recruiter who created the job** can update/delete it.
+
+### Applications
+- ✅ **Recruiter** can update application status only for their jobs.
+- ✅ **Candidate** can insert new applications.
+
+---
+
+## ▶️ Getting Started
 
 ### Prerequisites
-- Node.js (v14+)  
-- npm or yarn  
-- Supabase account  
-- Clerk account  
+- **Node.js** (v18 or higher)
+- **npm** or **yarn** or **pnpm**
+- **Supabase account** ([sign up here](https://supabase.com))
+- **Clerk account** ([sign up here](https://clerk.com))
 
-### Setup Supabase
-1. Create a new project in Supabase  
-2. Create the following tables (example schema shown below)  
-3. Configure Row Level Security (RLS) policies  
-4. Generate API keys and environment variables  
+### 1. Clone the repository
 
-### Setup Clerk
-1. Sign up at Clerk  
-2. Create application (frontend)  
-3. Get your `CLERK_FRONTEND_API`, `CLERK_PUBLISHABLE_KEY`, etc.  
-4. Set redirect URLs to your local dev and production URLs  
+```bash
+git clone https://github.com/tejas-shewale/job-portal-react.git
+cd job-portal-react
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### 3. Set up Supabase
+
+1. Create a new project at [Supabase](https://supabase.com)
+2. Create the database tables using the schema above
+3. Set up **Row Level Security (RLS)** policies:
+   - Enable RLS on all tables
+   - Create policies for recruiter and candidate access
+4. Set up **Supabase Storage** bucket for company logos
+5. Copy your **Project URL** and **Anon Key**
+
+### 4. Set up Clerk
+
+1. Create an account at [Clerk](https://clerk.com)
+2. Create a new application
+3. Enable **Email/Password** and **Google OAuth**
+4. Copy your **Publishable Key** and **Secret Key**
+
+### 5. Create `.env` file
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+VITE_CLERK_SECRET_KEY=your_clerk_secret_key
+```
+
+### 6. Start development server
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
+
+The application will open at `http://localhost:5173`
+
+---
+
+## 📁 Project Structure
+
+```
+job-portal-react/
+├── public/
+│   └── assets/
+├── src/
+│   ├── api/
+│   │   └── apiJobs.js
+│   ├── components/
+│   │   ├── ui/                    # Shadcn UI components
+│   │   ├── JobCard.jsx
+│   │   ├── ApplicationCard.jsx
+│   │   ├── ApplyJobDrawer.jsx
+│   │   └── ...
+│   ├── pages/
+│   │   ├── Landing.jsx
+│   │   ├── JobListing.jsx
+│   │   ├── JobPage.jsx
+│   │   ├── MyJobs.jsx
+│   │   ├── PostJob.jsx
+│   │   ├── SavedJobs.jsx
+│   │   └── Onboarding.jsx
+│   ├── layouts/
+│   │   ├── Header.jsx
+│   │   └── AppLayout.jsx
+│   ├── lib/
+│   │   └── supabase.js           # Supabase client
+│   ├── hooks/
+│   │   └── useFetch.js
+│   ├── utils/
+│   │   └── supabase.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── .env
+├── .gitignore
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+├── components.json
+└── README.md
+```
+
+---
+
+## 🎯 Usage
+
+### For Recruiters
+
+1. **Sign up/Login** with Clerk authentication
+2. **Onboard as Recruiter** during first login
+3. **Create a company** with name and logo
+4. **Post new jobs** with details and requirements
+5. **Manage job listings** (edit, delete, open/close)
+6. **View applications** and update status
+7. **Track all applications** in one place
+
+### For Candidates
+
+1. **Sign up/Login** with Clerk authentication
+2. **Onboard as Candidate** during first login
+3. **Browse jobs** on the job listing page
+4. **View job details** with full descriptions
+5. **Save jobs** to your wishlist
+6. **Apply for jobs** with resume and details
+7. **Track your applications** status
+
+---
+
+## 🔮 Future Enhancements
+
+- 👥 **Role-based dashboards** with analytics
+- 📤 **Resume upload** to Supabase Storage
+- 🔍 **Advanced job filtering** (category, salary, experience)
+- 🤖 **Job recommendations** using AI
+- 📅 **Interview scheduling** module
+- 📊 **Application analytics** for recruiters
+- 🔔 **Email notifications** for status updates
+- 💬 **Chat system** between recruiters and candidates
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
 
 
+## 👨‍💻 Author
+
+**Tejas Shewale**
+
+- 🔗 GitHub: [@tejas-shewale](https://github.com/tejas-shewale)
+- 🔗 LinkedIn: www.linkedin.com/in/tejas-shewale
+
+
+---
+
+## 🙏 Acknowledgments
+
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Supabase](https://supabase.com/)
+- [Clerk](https://clerk.com/)
+- [Shadcn UI](https://ui.shadcn.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+
+---
+
+
+## 🐛 Issues
+
+If you encounter any issues, please [open an issue](https://github.com/tejas-shewale/job-portal-react/issues) on GitHub.
+
+---
+
+⭐ **If you found this project helpful, please give it a star!**
+
+---
+
+Made with ❤️ by [Tejas Shewale](https://github.com/tejas-shewale)
